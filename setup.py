@@ -1,12 +1,9 @@
 import re
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup
 
 
 def version():
-    pyfile = 'fzu/__main__.py'
+    pyfile = 'fzu/__init__.py'
     with open(pyfile) as fp:
         data = fp.read()
 
@@ -25,6 +22,12 @@ setup(
     license='BSD',
     url='https://github.com/tebeka/fzu',
     packages=['fzu'],
+    package_dir={
+        'fzu': 'fzu',
+    },
+    package_data={
+        'fzu': 'fzu/symbols/*',
+    },
     zip_safe=False,
     entry_points={
         'console_scripts': [
