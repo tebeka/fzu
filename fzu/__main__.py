@@ -5,7 +5,7 @@ from argparse import ArgumentParser
 from subprocess import run, PIPE
 from pathlib import Path
 
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 
 def has_fzf():
