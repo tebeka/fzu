@@ -5,7 +5,15 @@ from argparse import ArgumentParser
 from subprocess import run, PIPE
 from pathlib import Path
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
+
+
+def has_fzf():
+    try:
+        out = run(['fzf', '--help'], capture_output=True)
+        return out.returncode == 0
+    except OSError:
+        return False
 
 
 def main():
@@ -17,6 +25,9 @@ def main():
     if args.version:
         print(__version__)
         raise SystemExit()
+
+    if not has_fzf():
+        raise SystemExit('error: fzf not found, please install it')
 
     symbols = Path(__file__).parent.absolute() / 'symbols'
     out = run(['fzf', '--preview', 'cat {}'], cwd=symbols, stdout=PIPE)
