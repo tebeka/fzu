@@ -4,7 +4,9 @@ all:
 	$(error please pick a target)
 
 sdist:
-	rm -f dist/fzu-*.tar.gz
+	rm -rf dist
+	rm -rf build
+	rm -rf fzu.egg-info
 	python setup.py sdist
 
 pypi: sdist
@@ -12,6 +14,7 @@ pypi: sdist
 
 
 test-install: sdist
+	rm -fr $(venv)
 	virtualenv $(venv)
 	$(venv)/bin/python -m pip install dist/fzu-*.tar.gz
 	test -d $(venv)/lib/python3.7/site-packages/fzu/symbols
