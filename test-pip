@@ -1,6 +1,0 @@
-#!/bin/bash
-
-/tmp/v/bin/pip uninstall -y fzu
-make sdist
-/tmp/v/bin/pip install --no-cache-dir dist/fzu*.tar.gz
-ls --color /tmp/v/lib/python3.7/site-packages/fzu
