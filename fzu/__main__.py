@@ -4,14 +4,18 @@
 from argparse import ArgumentParser
 from subprocess import run, PIPE
 from pathlib import Path
-from zipfile import is_zipfile, ZipFile
+from zipfile import is_zipfile
 import sys
 from getpass import getuser
 from tempfile import gettempdir
+import unicodedata
+
+from fzu.symbols import symbols
 
 __version__ = '0.1.3'
 
 tmp_dir: Path = Path(gettempdir()) / f'fzu-{getuser()}'
+symbols_dir: Path = tmp_dir / 'symbols'
 
 
 def has_fzf():
@@ -22,20 +26,24 @@ def has_fzf():
         return False
 
 
-def should_extract(exe):
+def should_create_dir(exe):
     if not tmp_dir.exists():
         return True
 
     return Path(exe).stat().st_mtime > tmp_dir.stat().st_mtime
 
 
-def extract_files(exe):
-    if not should_extract(exe):
-        return
+def create_symbols():
+    symbols_dir.mkdir(parents=True, exist_ok=True)
+    for sym in symbols:
+        try:
+            char = unicodedata.lookup(sym)
+        except KeyError:
+            # TODO: Warn
+            continue
 
-    tmp_dir.mkdir(parents=True, exist_ok=True)
-    with ZipFile(exe) as zf:
-        zf.extractall(tmp_dir)
+        with open(symbols_dir / sym, 'w') as out:
+            out.write(char)
 
 
 def main():
@@ -44,16 +52,18 @@ def main():
         '--version', help='print version & exit', action='store_true',
         default=False)
     args = parser.parse_args()
+
     if args.version:
         print(__version__)
         raise SystemExit()
 
     exe = sys.argv[0]
+    if should_create_dir(exe):
+        create_symbols()
+
     if is_zipfile(exe):
-        extract_files(exe)
-        symbols_dir = tmp_dir / 'symbols'
-    else:
-        symbols_dir = Path(__file__).parent.absolute() / 'symbols'
+        # FIXME
+        ...
 
     if not has_fzf():
         raise SystemExit('error: fzf not found, please install it')
@@ -62,10 +72,13 @@ def main():
     if out.returncode != 0:
         raise SystemExit()
 
-    sym_file = symbols_dir / out.stdout.decode('utf-8').strip()
-    with sym_file.open() as fp:
-        sym = fp.read()
-    print(sym)
+    name = out.stdout.decode('utf-8').strip()
+    try:
+        char = unicodedata.lookup(name)
+    except KeyError:
+        raise SystemExit(f'error: unknown name - {name!r}')
+
+    print(char)
 
 
 if __name__ == '__main__':

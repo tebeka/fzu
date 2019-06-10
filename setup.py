@@ -22,12 +22,6 @@ setup(
     license='BSD',
     url='https://github.com/tebeka/fzu',
     packages=['fzu'],
-    package_dir={
-        'fzu': 'fzu',
-    },
-    package_data={
-        'fzu': 'fzu/symbols/*',
-    },
     zip_safe=False,
     entry_points={
         'console_scripts': [
