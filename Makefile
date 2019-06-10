@@ -18,3 +18,7 @@ test-install: sdist
 	virtualenv $(venv)
 	$(venv)/bin/python -m pip install dist/fzu-*.tar.gz
 	test -d $(venv)/lib/python3.7/site-packages/fzu/symbols
+
+app:
+	mkdir -p dist
+	python -m zipapp fzu -p '/usr/bin/env python3' -o dist/fzu

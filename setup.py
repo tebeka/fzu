@@ -3,7 +3,7 @@ from setuptools import setup
 
 
 def version():
-    pyfile = 'fzu/__init__.py'
+    pyfile = 'fzu/__main__.py'
     with open(pyfile) as fp:
         data = fp.read()
 
