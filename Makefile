@@ -3,6 +3,11 @@ venv = /tmp/fzu-install-test
 all:
 	$(error please pick a target)
 
+
+.PHONY: test
+test:
+	python -m pytest -v tests
+
 .PHONY: sdist
 sdist:
 	rm -rf dist
