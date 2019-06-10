@@ -16,9 +16,11 @@ pypi: sdist
 
 .PHONY: test-install
 test-install: sdist
+	rm -rf /tmp/fzu-$(USER)
 	rm -fr $(venv)
 	virtualenv $(venv)
 	$(venv)/bin/python -m pip install dist/fzu-*.tar.gz
+	$(venv)/bin/fzu
 
 .PHONY: app
 app:
