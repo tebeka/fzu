@@ -6,6 +6,8 @@ all:
 
 .PHONY: test
 test:
+	find . -name '*.pyc' -exec rm {} \;
+	flake8 fzu tests
 	python -m pytest -v tests
 
 .PHONY: sdist
@@ -18,6 +20,10 @@ sdist:
 .PHONY: pypi
 pypi: sdist
 	twine upload dist/fzu-*.tar.gz
+
+.PHONY: circleci
+circleci:
+	docker build -f Dockerfile.test .
 
 .PHONY: test-install
 test-install: sdist
