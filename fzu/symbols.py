@@ -16,6 +16,10 @@ symbols = (
     'New Sheqel Sign',
     'Pound Sign',
 
+    # Hearts
+    'Black Heart Suit',
+    'White Heart Suit',
+
     # Greek
     'Greek Capital Letter Alpha',
     'Greek Capital Letter Beta',
@@ -64,6 +68,14 @@ symbols = (
     'Greek Small Letter Psi',
     'Greek Small Letter Omega',
 
+    # Math
+    'Dot Operator',
+    'Intersection',
+    'Larger Than or Equal To',
+    'Less-Than or Equal To',
+    'Not Equal To',
+    'Union',
+
     # Misc
     'Pile of Poo',
 
@@ -76,4 +88,10 @@ symbols = (
     'Smiling Face with Smiling Eyes',
     'Smiling Face with Sunglasses',
     'White Smiling Face',
+
+    # Stars
+    'Black Star',
+    'White Star',
+    'Star of David',
+    'Star and Crescent',
 )
