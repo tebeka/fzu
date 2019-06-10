@@ -4,7 +4,6 @@
 from argparse import ArgumentParser
 from subprocess import run, PIPE
 from pathlib import Path
-from zipfile import is_zipfile
 import sys
 from getpass import getuser
 from tempfile import gettempdir
@@ -18,19 +17,12 @@ tmp_dir: Path = Path(gettempdir()) / f'fzu-{getuser()}'
 symbols_dir: Path = tmp_dir / 'symbols'
 
 
-def find_fzf():
-    fzf = tmp_dir / 'fzf'
-    if fzf.exists():
-        return fzf
-
+def has_fzf():
     try:
         out = run(['fzf', '--help'], capture_output=True)
-        if out.returncode == 0:
-            return 'fzf'
+        return out.returncode == 0
     except OSError:
-        pass
-
-    return None
+        return False
 
 
 def should_create_dir(exe):
@@ -67,10 +59,6 @@ def main():
     exe = sys.argv[0]
     if should_create_dir(exe):
         create_symbols()
-
-    if is_zipfile(exe):
-        # FIXME
-        ...
 
     if not has_fzf():
         raise SystemExit('error: fzf not found, please install it')
