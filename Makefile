@@ -29,5 +29,10 @@ test-install: sdist
 
 .PHONY: app
 app:
+	rm -rf build/app
+	mkdir -p build/app
+	cp -r fzu build/app
+	cp $(shell which fzf) build/app/fzu/fzf
 	mkdir -p dist
-	python -m zipapp fzu -p '/usr/bin/env python3' -o dist/fzu
+	python -m zipapp build/app/fzu -p '/usr/bin/env python3' -o dist/fzu
+	rm -rf build/app

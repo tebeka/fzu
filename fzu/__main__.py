@@ -18,12 +18,19 @@ tmp_dir: Path = Path(gettempdir()) / f'fzu-{getuser()}'
 symbols_dir: Path = tmp_dir / 'symbols'
 
 
-def has_fzf():
+def find_fzf():
+    fzf = tmp_dir / 'fzf'
+    if fzf.exists():
+        return fzf
+
     try:
         out = run(['fzf', '--help'], capture_output=True)
-        return out.returncode == 0
+        if out.returncode == 0:
+            return 'fzf'
     except OSError:
-        return False
+        pass
+
+    return None
 
 
 def should_create_dir(exe):
