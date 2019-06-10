@@ -12,7 +12,7 @@ import unicodedata
 
 from fzu.symbols import symbols
 
-__version__ = '0.1.3'
+__version__ = '0.2.0'
 
 tmp_dir: Path = Path(gettempdir()) / f'fzu-{getuser()}'
 symbols_dir: Path = tmp_dir / 'symbols'
