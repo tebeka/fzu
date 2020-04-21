@@ -3,8 +3,10 @@ symbols = (
     # Arrows
     'Downwards Arrow',
     'Left Right Arrow',
+    'Leftwards Arrow Over Rightwards Arrow',
     'Leftwards Arrow',
     'North West Arrow',
+    'Rightwards Arrow Over Leftwards Arrow',
     'Rightwards Arrow',
     'Up Down Arrow',
     'Upwards Arrow',
