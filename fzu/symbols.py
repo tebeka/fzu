@@ -1,3 +1,5 @@
+import sys
+
 # Sybmols, please try to find the right group and add symbols sorted by name
 symbols = (
     # Arrows
@@ -12,7 +14,6 @@ symbols = (
     'Upwards Arrow',
 
     # Currencies
-    'Bitcoin Sign',
     'Colon Sign',
     'Euro Sign',
     'New Sheqel Sign',
@@ -97,3 +98,8 @@ symbols = (
     'Star of David',
     'Star and Crescent',
 )
+
+if sys.version_info[:2] > (3, 6):
+    symbols += (
+        'Bitcoin Sign',
+    )
