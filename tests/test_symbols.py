@@ -10,4 +10,4 @@ def test_symbol(symbol):
     try:
         unicodedata.lookup(symbol)
     except KeyError:
-        assert False, symbol
+        raise AssertionError(symbol)
