@@ -1,11 +1,12 @@
-FROM python:3.7-slim
+FROM python:3.8-slim
 
 RUN apt-get update && apt-get install -y curl make
-RUN curl -LO https://github.com/junegunn/fzf-bin/releases/download/0.18.0/fzf-0.18.0-linux_amd64.tgz
-RUN tar xzf fzf-0.18.0-linux_amd64.tgz
+RUN curl -LO https://github.com/junegunn/fzf-bin/releases/download/0.21.1/fzf-0.21.1-linux_amd64.tgz
+RUN tar xzf fzf-0.21.1-linux_amd64.tgz
 RUN mv fzf /usr/local/bin
-RUN rm fzf-0.18.0-linux_amd64.tgz
-RUN pip install pytest flake8
+RUN rm fzf-0.21.1-linux_amd64.tgz
+RUN pip install --upgrade pip
+RUN pip install -r dev-requirements.txt
 WORKDIR /fzu
 COPY fzu fzu
 COPY tests tests
